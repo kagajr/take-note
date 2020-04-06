@@ -1,4 +1,4 @@
-import { ActionType } from "constants/actionTypes";
+import { ActionType } from "constants/enums";
 import { initialState } from "constants/fakeState";
 
 const noteReducer = (state = initialState, action) => {
