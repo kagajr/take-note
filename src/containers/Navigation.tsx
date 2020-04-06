@@ -25,7 +25,7 @@ const Navigation: React.FC<NavigationProps> = ({ activeNote, addNote, swapNote, 
             created: '',
             lastUpdated: '',
           }
-          if (activeNote.text !== '') {
+          if ((activeNote && activeNote.text !== '') || !activeNote) {
             addNote(note)
             swapNote(note.id)
           }
