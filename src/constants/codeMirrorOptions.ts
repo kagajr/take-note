@@ -1,6 +1,7 @@
 export default {
-  mode: "gfm",
-  theme: "base16-light",
+  mode: 'gfm',
+  theme: 'base16-light',
   lineNumbers: true,
-  lineWrapping: "wrap",
-};
+  lineWrapping: 'wrap',
+  styleActiveLine: { nonEmpty: true },
+}
