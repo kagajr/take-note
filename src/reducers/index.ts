@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux'
-import noteState from 'reducers/noteReducer'
-export default combineReducers({
-  noteState,
-} as any)
+import noteReducer from 'reducers/noteReducer'
+const rootReducer = combineReducers({ noteState: noteReducer } as any)
+
+export type AppState = ReturnType<typeof rootReducer>
+
+export default rootReducer
