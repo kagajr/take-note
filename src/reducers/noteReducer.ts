@@ -1,27 +1,21 @@
 import { ActionType } from 'constants/enums'
 import { NoteState } from 'types'
-import { Action } from 'redux'
 
 const initialState: NoteState = {
-  data: [],
+  notes: [],
   active: '',
-  loading: true,
   error: '',
+  loading: true,
 }
 
 const noteReducer = (state = initialState, action): NoteState => {
   switch (action.type) {
     case ActionType.LOAD_NOTES:
       return state
-    case ActionType.PRUNE_NOTES:
-      return {
-        ...state,
-        data: state.data.filter((note) => note.text !== ''),
-      }
     case ActionType.LOAD_NOTES_SUCCESS:
       return {
         ...state,
-        data: action.payload,
+        notes: action.payload,
         active: action.payload[0].id,
         loading: false,
       }
@@ -36,15 +30,20 @@ const noteReducer = (state = initialState, action): NoteState => {
         ...state,
         active: action.payload,
       }
+    case ActionType.PRUNE_NOTES:
+      return {
+        ...state,
+        notes: state.notes.filter((note) => note.text !== ''),
+      }
     case ActionType.ADD_NOTE:
       return {
         ...state,
-        data: [...state.data, action.payload],
+        notes: [...state.notes, action.payload],
       }
     case ActionType.UPDATE_NOTE:
       return {
         ...state,
-        data: state.data.map((note) =>
+        notes: state.notes.map((note) =>
           note.id === action.payload.id
             ? {
                 id: note.id,
@@ -56,23 +55,18 @@ const noteReducer = (state = initialState, action): NoteState => {
         ),
       }
     case ActionType.DELETE_NOTE:
-      const deletedNoteIndex = state.data.findIndex((note) => note.id === action.payload)
-      let newActiveNoteId: string
+      const deletedNoteIndex = state.notes.findIndex((note) => note.id === action.payload)
+      let newActiveNoteId = ''
 
-      if (deletedNoteIndex) {
-        if (state.data.find((note, i) => i === 1)) {
-          newActiveNoteId = state.data[deletedNoteIndex + 1].id
-        } else {
-          newActiveNoteId = ''
-        }
-      } else if (state.data[deletedNoteIndex - 1]) {
-        newActiveNoteId = state.data[deletedNoteIndex - 1].id
-      } else {
-        newActiveNoteId = ''
+      if (deletedNoteIndex === 0 && state.notes[1]) {
+        newActiveNoteId = state.notes[deletedNoteIndex + 1].id
+      } else if (state.notes[deletedNoteIndex - 1]) {
+        newActiveNoteId = state.notes[deletedNoteIndex - 1].id
       }
+
       return {
         ...state,
-        data: state.data.filter((note) => note.id !== action.payload),
+        notes: state.notes.filter((note) => note.id !== action.payload),
         active: newActiveNoteId,
       }
     default:
