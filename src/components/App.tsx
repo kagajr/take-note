@@ -1,16 +1,16 @@
-import React from "react";
-import NoteList from "containers/NoteList";
-import NoteEditor from "containers/NoteEditor";
+import React from 'react'
+import NoteList from 'containers/NoteList'
+import NoteEditor from 'containers/NoteEditor'
 import Navigation from 'containers/Navigation'
 
 const App: React.FC = () => {
   return (
     <div className="app">
-        <Navigation />
       <NoteList />
       <NoteEditor />
+      <Navigation />
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App
