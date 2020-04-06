@@ -1,6 +1,6 @@
 import React from "react";
 import { Dispatch } from "redux";
-import { swapNote } from "../actions";
+import { swapNote } from "actions";
 import { connect } from "react-redux";
 
 const NoteList = ({ notes, swapNote }) => (

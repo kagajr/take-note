@@ -1,6 +1,6 @@
 import { createStore, compose, applyMiddleware } from "redux";
-import { logger } from "../helpers";
-import rootReducer from "../reducers";
+import { logger } from "helpers";
+import rootReducer from "reducers";
 
 const store = createStore(
   rootReducer,

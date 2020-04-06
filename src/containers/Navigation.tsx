@@ -1,9 +1,9 @@
 import React from "react";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
-import { addNote, swapNote } from "../actions";
+import { addNote, swapNote } from "actions";
 import uuid from "uuid/v4";
-import noteReducer from "../reducers/noteReducer";
+import noteReducer from "reducers/noteReducer";
 
 const Navigation = (props) => {
   const { addNote, swapNote } = props;
