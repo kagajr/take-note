@@ -12,9 +12,9 @@ import 'codemirror/mode/gfm/gfm.js'
 import 'codemirror/addon/selection/active-line.js'
 
 interface NoteEditorProps {
+  loading: boolean
   activeNote: NoteItem
   updateNote: Function
-  loading: boolean
   loadNotes: Function
 }
 
@@ -24,13 +24,13 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ loading, activeNote, updateNote
   }, [loadNotes])
 
   if (loading) {
-    return <div className="empty-editor"></div>
+    return <div className="empty-editor" />
   } else if (!activeNote) {
     return <div className="empty-editor vcenter">Create your first note!</div>
   } else {
     return (
       <CodeMirror
-        className="editor"
+        className="editor mousetrap"
         value={activeNote.text}
         options={options}
         editorDidMount={(editor) => {

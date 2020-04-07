@@ -9,6 +9,8 @@
     "codemirror": "^5.52.2",
     "husky": "^4.2.3",
     "lint-staged": "^10.1.2",
+    "mousetrap": "^1.6.5",
+    "mousetrap-global-bind": "^1.1.0",
     "node-sass": "^4.13.1",
     "prettier": "^2.0.4",
     "react": "^16.13.1",
