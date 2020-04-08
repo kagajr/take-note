@@ -12,6 +12,7 @@
     "husky": "^4.2.3",
     "lint-staged": "^10.1.2",
     "lodash": "^4.17.15",
+    "moment": "^2.24.0",
     "mousetrap": "^1.6.5",
     "mousetrap-global-bind": "^1.1.0",
     "node-sass": "^4.13.1",
