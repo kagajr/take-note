@@ -118,6 +118,7 @@ export type NotesActionTypes =
   | SwapNoteAction
   | PruneNotesAction
   | AddCategoryToNoteAction
+  | PruneCategoryFromNotesAction
 
 /* Categories */
 
@@ -138,6 +139,11 @@ export interface LoadCategoriesErrorAction {
 export interface AddCategoryAction {
   type: typeof Actions.ADD_CATEGORY
   payload: CategoryItem
+}
+
+export interface PruneCategoryFromNotesAction {
+  type: typeof Actions.PRUNE_CATEGORY_FROM_NOTES
+  payload: string
 }
 
 export interface AddCategoryToNoteAction {
