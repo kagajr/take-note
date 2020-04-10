@@ -67,7 +67,12 @@ const AppSidebar: React.FC<AppProps> = ({
           Notes
         </div>
 
-        <h2>Categories</h2>
+        <div className="category-list vbetween">
+          <h2>Categories</h2>
+          <button className="add-button" onClick={newTempCategoryHandler}>
+            +
+          </button>
+        </div>
         <div className="category-list">
           {categories.map((category) => {
             return (
@@ -89,8 +94,11 @@ const AppSidebar: React.FC<AppProps> = ({
                 <div
                   className="category-options"
                   onClick={() => {
+                    const newNoteId = notes.length > 0 ? notes[0].id : ''
                     deleteCategory(category.id)
                     pruneCategoryFromNotes(category.id)
+                    swapCategory('')
+                    swapNote(newNoteId)
                   }}
                 >
                   X
@@ -117,9 +125,6 @@ const AppSidebar: React.FC<AppProps> = ({
             />
           </form>
         )}
-      </section>
-      <section id="app-sidebar-button">
-        <button onClick={newTempCategoryHandler}>Add Category</button>
       </section>
     </aside>
   )
