@@ -224,6 +224,13 @@ code {
   }
 }
 
+.select-element {
+  -webkit-appearance: none;
+  font-size: 1rem;
+  padding: 0.5rem;
+  width: 100%;
+}
+
 .vcenter {
   display: flex;
   align-items: center;

@@ -52,11 +52,12 @@ export interface SyncState {
 
 export interface SyncStateAction {
   type: typeof Actions.SYNC_STATE
-  payload: Storage
+  payload: { categories: CategoryItem[]; notes: NoteItem[] }
 }
 
 export interface SyncStateSuccessAction {
   type: typeof Actions.SYNC_STATE_SUCCESS
+  payload: string
 }
 
 export interface SyncStateErrorAction {
@@ -116,6 +117,7 @@ export type NotesActionTypes =
   | UpdateNoteAction
   | SwapNoteAction
   | PruneNotesAction
+  | AddCategoryToNoteAction
 
 /* Categories */
 
@@ -136,6 +138,14 @@ export interface LoadCategoriesErrorAction {
 export interface AddCategoryAction {
   type: typeof Actions.ADD_CATEGORY
   payload: CategoryItem
+}
+
+export interface AddCategoryToNoteAction {
+  type: typeof Actions.ADD_CATEGORY_TO_NOTE
+  payload: {
+    categoryId: string
+    noteId: string
+  }
 }
 
 export interface DeleteCategoryAction {
