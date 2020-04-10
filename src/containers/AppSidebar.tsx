@@ -46,10 +46,11 @@ const AppSidebar: React.FC<AppProps> = ({
 
     const category = { id: kebabCase(tempCategory), name: tempCategory }
 
-    addCategory(category)
-
-    setTempCategory('')
-    setAddingTempCategory(false)
+    if (!categories.find((cat) => cat.id === kebabCase(tempCategory))) {
+      addCategory(category)
+      setTempCategory('')
+      setAddingTempCategory(false)
+    }
   }
 
   return (
