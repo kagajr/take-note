@@ -34,9 +34,19 @@ export const deleteNote = (noteId: string) => ({
   payload: noteId,
 })
 
+export const sendNoteToTrash = (noteId: string) => ({
+  type: Actions.SEND_NOTE_TO_TRASH,
+  payload: noteId,
+})
+
 export const swapNote = (noteId: string) => ({
   type: Actions.SWAP_NOTE,
   payload: noteId,
+})
+
+export const swapFolder = (folder: string) => ({
+  type: Actions.SWAP_FOLDER,
+  payload: folder,
 })
 
 export const pruneNotes = () => ({

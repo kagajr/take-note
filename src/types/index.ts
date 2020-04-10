@@ -10,6 +10,7 @@ export interface NoteItem {
   created: string
   lastUpdated: string
   category?: string
+  trash?: boolean
 }
 
 export interface CategoryItem {
@@ -31,10 +32,11 @@ export interface NoteState {
   activeNoteId: string
   error: string
   loading: boolean
+  activeFolder: string
+  activeCategoryId: string
 }
 export interface CategoryState {
   categories: CategoryItem[]
-  activeCategoryId: string
   error: string
   loading: boolean
 }
@@ -93,6 +95,21 @@ export interface DeleteNoteAction {
   payload: string
 }
 
+export interface SendNoteToTrashAction {
+  type: typeof Actions.SEND_NOTE_TO_TRASH
+  payload: string
+}
+
+export interface SwapCategoryAction {
+  type: typeof Actions.SWAP_CATEGORY
+  payload: string
+}
+
+export interface SwapFolderAction {
+  type: typeof Actions.SWAP_FOLDER
+  payload: string
+}
+
 export interface UpdateNoteAction {
   type: typeof Actions.UPDATE_NOTE
   payload: NoteItem
@@ -119,6 +136,9 @@ export type NotesActionTypes =
   | PruneNotesAction
   | AddCategoryToNoteAction
   | PruneCategoryFromNotesAction
+  | SendNoteToTrashAction
+  | SwapCategoryAction
+  | SwapFolderAction
 
 /* Categories */
 
@@ -164,11 +184,6 @@ export interface UpdateCategoryAction {
   payload: CategoryItem
 }
 
-export interface SwapCategoryAction {
-  type: typeof Actions.SWAP_CATEGORY
-  payload: string
-}
-
 export type CategoryActionTypes =
   | LoadCategoriesAction
   | LoadCategoriesSuccessAction
@@ -176,4 +191,3 @@ export type CategoryActionTypes =
   | AddCategoryAction
   | DeleteCategoryAction
   | UpdateCategoryAction
-  | SwapCategoryAction

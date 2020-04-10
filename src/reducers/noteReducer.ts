@@ -1,11 +1,13 @@
-import { Actions } from 'constants/enums'
-import { NoteState, NotesActionTypes } from 'types'
+import { Actions, Folders } from 'constants/enums'
+import { NoteState, NotesActionTypes, NoteItem } from 'types'
 
 const initialState: NoteState = {
   notes: [],
   activeNoteId: '',
   error: '',
   loading: true,
+  activeFolder: 'ALL',
+  activeCategoryId: '',
 }
 
 const noteReducer = (state = initialState, action: NotesActionTypes): NoteState => {
@@ -36,33 +38,50 @@ const noteReducer = (state = initialState, action: NotesActionTypes): NoteState 
         notes: state.notes.map((note) =>
           note.id === action.payload.id
             ? {
-                id: note.id,
+                ...note,
                 text: action.payload.text,
-                created: note.created,
                 lastUpdated: action.payload.lastUpdated,
               }
             : note
         ),
       }
-    case Actions.DELETE_NOTE:
-      const deletedNoteIndex = state.notes.findIndex((note) => note.id === action.payload)
-      let newActiveNoteId = ''
-
-      if (deletedNoteIndex === 0 && state.notes[1]) {
-        newActiveNoteId = state.notes[deletedNoteIndex + 1].id
-      } else if (state.notes[deletedNoteIndex - 1]) {
-        newActiveNoteId = state.notes[deletedNoteIndex - 1].id
+    case Actions.SEND_NOTE_TO_TRASH:
+      return {
+        ...state,
+        notes: state.notes.map((note) =>
+          note.id === action.payload
+            ? {
+                ...note,
+                trash: true,
+              }
+            : note
+        ),
+        activeNoteId: getNewNoteId(state.notes, action.payload),
       }
-
+    case Actions.DELETE_NOTE:
       return {
         ...state,
         notes: state.notes.filter((note) => note.id !== action.payload),
-        activeNoteId: newActiveNoteId,
+        activeNoteId: getNewNoteId(state.notes, action.payload),
       }
     case Actions.SWAP_NOTE:
       return {
         ...state,
         activeNoteId: action.payload,
+      }
+    case Actions.SWAP_CATEGORY:
+      return {
+        ...state,
+        activeCategoryId: action.payload,
+        activeFolder: Folders.NONE,
+        activeNoteId: getFirstNote(Folders.NONE, state.notes, action.payload),
+      }
+    case Actions.SWAP_FOLDER:
+      return {
+        ...state,
+        activeFolder: action.payload,
+        activeCategoryId: '',
+        activeNoteId: getFirstNote(action.payload, state.notes),
       }
     case Actions.PRUNE_NOTES:
       return {
@@ -75,10 +94,7 @@ const noteReducer = (state = initialState, action: NotesActionTypes): NoteState 
         notes: state.notes.map((note) =>
           note.category === action.payload
             ? {
-                id: note.id,
-                text: note.text,
-                created: note.created,
-                lastUpdated: note.lastUpdated,
+                ...note,
                 category: undefined,
               }
             : note
@@ -90,10 +106,7 @@ const noteReducer = (state = initialState, action: NotesActionTypes): NoteState 
         notes: state.notes.map((note) =>
           note.id === action.payload.noteId
             ? {
-                id: note.id,
-                text: note.text,
-                created: note.created,
-                lastUpdated: note.lastUpdated,
+                ...note,
                 category: action.payload.categoryId,
               }
             : note
@@ -105,3 +118,31 @@ const noteReducer = (state = initialState, action: NotesActionTypes): NoteState 
 }
 
 export default noteReducer
+
+export function getFirstNote(folder: string, notes: NoteItem[], categoryId?: string): string {
+  switch (folder) {
+    case Folders.NONE:
+      return notes.find((note) => note.category === categoryId)
+        ? notes.find((note) => note.category === categoryId)!.id
+        : ''
+    case Folders.ALL:
+      return notes.length > 0 ? notes[0].id : ''
+    case Folders.TRASH:
+      return notes.find((note) => note.trash) ? notes.find((note) => note.trash)!.id : ''
+    default:
+      return ''
+  }
+}
+
+function getNewNoteId(notes: NoteItem[], payload: string): string {
+  const deletedNoteIndex = notes.findIndex((note) => note.id === payload)
+  let newActiveNoteId = ''
+
+  if (deletedNoteIndex === 0 && notes[1]) {
+    newActiveNoteId = notes[deletedNoteIndex + 1].id
+  } else if (notes[deletedNoteIndex - 1]) {
+    newActiveNoteId = notes[deletedNoteIndex - 1].id
+  }
+
+  return newActiveNoteId
+}
