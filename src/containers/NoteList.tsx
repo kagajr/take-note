@@ -6,6 +6,7 @@ import { NoteItem, CategoryItem, ApplicationState } from 'types'
 import { getNoteTitle } from 'helpers'
 import { Folders } from 'constants/enums'
 import NoteOptions from 'containers/NoteOptions'
+import { MoreHorizontal } from 'react-feather'
 
 interface NoteListProps {
   activeNoteId: string
@@ -95,7 +96,7 @@ const NoteList: React.FC<NoteListProps> = ({
                 className={noteOptionsId === note.id ? 'note-options active ' : 'note-options'}
                 onClick={(event) => handleNoteOptionsClick(event, note.id)}
               >
-                ...
+                <MoreHorizontal size={15} />
               </div>
               {noteOptionsId === note.id && (
                 <div

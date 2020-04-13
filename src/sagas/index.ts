@@ -11,7 +11,7 @@ import {
 import { requestNotes, requestCategories, saveState } from 'api'
 import { SyncStateAction } from 'types'
 
-function* fetchNotes() {
+export function* fetchNotes() {
   try {
     const notes = yield requestNotes()
 

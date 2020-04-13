@@ -39,6 +39,7 @@ export interface CategoryState {
   categories: CategoryItem[]
   error: string
   loading: boolean
+  activeCategoryId: string
 }
 
 export interface SyncState {

@@ -33,7 +33,7 @@ export const saveState = (notes: NoteItem[], categories: CategoryItem[]) => {
     localStorage.setItem('notes', JSON.stringify(notes))
     localStorage.setItem('categories', JSON.stringify(categories))
 
-    if (false) {
+    if (reject) {
       reject({ message: 'Sync failed' })
     }
 

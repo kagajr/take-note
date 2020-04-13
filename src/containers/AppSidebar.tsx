@@ -15,10 +15,10 @@ import {
   syncState,
 } from 'actions'
 import kebabCase from 'lodash/kebabCase'
-import { Trash2, Book, Folder, X, Cloud, PlusCircle, Plus } from 'react-feather'
+import { Trash2, Book, Folder, X, UploadCloud, Plus, Settings, Upload } from 'react-feather'
 import { Folders } from 'constants/enums'
 
-const iconColor = 'rgba(255,255,255,0.4)'
+const iconColor = 'rgba(255, 255, 255, 0.2)'
 
 interface AppProps {
   addNote: (note: NoteItem) => void
@@ -94,10 +94,6 @@ const AppSidebar: React.FC<AppProps> = ({
   return (
     <aside className="app-sidebar">
       <section id="app-sidebar-main">
-        <div className="app-sidebar-link" onClick={newNoteHandler}>
-          <PlusCircle size={15} style={{ marginRight: '.5rem' }} color={iconColor} />
-          Add Note
-        </div>
         <div
           className={activeFolder === Folders.ALL ? 'app-sidebar-link active' : 'app-sidebar-link'}
           onClick={() => {
@@ -105,7 +101,7 @@ const AppSidebar: React.FC<AppProps> = ({
           }}
         >
           <Book size={15} style={{ marginRight: '.5rem' }} color={iconColor} />
-          Notes
+          All notes
         </div>
         <div
           className={
@@ -120,8 +116,8 @@ const AppSidebar: React.FC<AppProps> = ({
         </div>
         <div className="category-list vbetween">
           <h2>Categories</h2>
-          <button className="add-button" onClick={newTempCategoryHandler}>
-            <PlusCircle size={15} color={iconColor} />
+          <button className="add-category-button" onClick={newTempCategoryHandler}>
+            <Plus size={15} color={iconColor} />
           </button>
         </div>
         <div className="category-list">
@@ -183,8 +179,15 @@ const AppSidebar: React.FC<AppProps> = ({
         )}
       </section>
       <section>
-        <div className="app-sidebar-link" onClick={syncNotesHandler}>
-          <Cloud size={15} style={{ marginRight: '.5rem' }} color={iconColor} /> Sync
+        <div className="app-sidebar-actions" onClick={syncNotesHandler}>
+          <Plus className="action-button" size={18} onClick={newNoteHandler} color={iconColor} />
+          <UploadCloud
+            size={18}
+            className="action-button"
+            color={iconColor}
+            onClick={syncNotesHandler}
+          />
+          <Settings size={18} className="action-button" color={iconColor} />
         </div>
       </section>
     </aside>

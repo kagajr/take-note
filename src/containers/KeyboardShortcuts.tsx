@@ -18,7 +18,6 @@ interface KeyboardShortcutsProps {
   activeCategoryId: string
   notes: NoteItem[]
   categories: CategoryItem[]
-  syncing: boolean
 }
 
 const KeyboardShortcuts: React.FC<KeyboardShortcutsProps> = ({
@@ -30,7 +29,6 @@ const KeyboardShortcuts: React.FC<KeyboardShortcutsProps> = ({
   syncState,
   notes,
   categories,
-  syncing,
 }) => {
   const newNoteHandler = () => {
     const note: NoteItem = {

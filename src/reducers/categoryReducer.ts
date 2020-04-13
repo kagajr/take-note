@@ -3,6 +3,7 @@ import { CategoryState, CategoryActionTypes } from 'types'
 
 const initialState: CategoryState = {
   categories: [],
+  activeCategoryId: '',
   error: '',
   loading: true,
 }
@@ -16,6 +17,7 @@ const categoryReducer = (state = initialState, action: CategoryActionTypes): Cat
         ...state,
         categories: action.payload,
         loading: false,
+        activeCategoryId: '',
       }
     case Actions.LOAD_CATEGORIES_ERROR:
       return {
