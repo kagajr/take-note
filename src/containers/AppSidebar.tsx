@@ -11,7 +11,7 @@ import {
   deleteCategory,
 } from 'actions'
 import kebabCase from 'lodash/kebabCase'
-import { Trash2, Book, Folder } from 'react-feather'
+import { Trash2, Book, Folder, X } from 'react-feather'
 import { Folders } from 'constants/enums'
 
 interface AppProps {
@@ -122,7 +122,7 @@ const AppSidebar: React.FC<AppProps> = ({
                     swapNote(newNoteId)
                   }}
                 >
-                  X
+                  <X size={12} />
                 </div>
               </div>
             )

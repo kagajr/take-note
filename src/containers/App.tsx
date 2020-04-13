@@ -3,8 +3,8 @@ import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import NoteList from 'containers/NoteList'
 import NoteEditor from 'containers/NoteEditor'
-import Navigation from 'containers/Navigation'
 import AppSideBar from 'containers/AppSidebar'
+import KeyboardShortcuts from 'containers/KeyboardShortcuts'
 import { loadNotes, loadCategories } from 'actions'
 
 interface AppProps {
@@ -18,10 +18,10 @@ const App: React.FC<AppProps> = ({ loadNotes, loadCategories }) => {
   }, [loadNotes])
   return (
     <div className="app">
-      <Navigation />
       <AppSideBar />
       <NoteList />
       <NoteEditor />
+      <KeyboardShortcuts />
     </div>
   )
 }

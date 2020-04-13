@@ -3,34 +3,28 @@ import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import uuid from 'uuid/v4'
 import moment from 'moment'
-import { Download, X, Plus, Cloud } from 'react-feather'
+import { Download, X } from 'react-feather'
 import { addNote, swapNote, sendNoteToTrash, syncState } from 'actions'
 import { NoteItem, CategoryItem, ApplicationState } from 'types'
 import { getNoteTitle, downloadNote } from 'helpers'
 import { useKey } from 'helpers/hooks'
 
-interface NavigationProps {
-  addNote: (note: NoteItem) => void
+interface NoteOptionsProps {
   swapNote: (noteId: string) => void
   sendNoteToTrash: (noteId: string) => void
-  syncState: (notes: NoteItem[], categories: CategoryItem[]) => void
   activeNote?: NoteItem
   activeCategoryId: string
   notes: NoteItem[]
   categories: CategoryItem[]
-  syncing: boolean
 }
 
-const Navigation: React.FC<NavigationProps> = ({
+const NoteOptions: React.FC<NoteOptionsProps> = ({
   activeNote,
   activeCategoryId,
-  addNote,
   swapNote,
   sendNoteToTrash,
-  syncState,
   notes,
   categories,
-  syncing,
 }) => {
   const newNoteHandler = () => {
     const note: NoteItem = {
@@ -76,28 +70,20 @@ const Navigation: React.FC<NavigationProps> = ({
   })
 
   return (
-    <nav className="navigation">
-      <div className="nav-button" onClick={newNoteHandler}>
-        <Plus /> New Note
-      </div>
+    <nav className="note-options-nav">
       <div className="nav-button" onClick={trashNoteHandler}>
-        <X />
+        <X size={15} />
         Delete Note
       </div>
       <div className="nav-button" onClick={downloadNoteHandler}>
-        <Download />
+        <Download size={15} />
         Download Note
-      </div>
-      <div className="nav-button" onClick={syncNotesHandler}>
-        <Cloud />
-        Sync notes
       </div>
     </nav>
   )
 }
 
 const mapStateToProps = (state: ApplicationState) => ({
-  syncing: state.syncState.syncing,
   notes: state.noteState.notes,
   categories: state.categoryState.categories,
   activeNote: state.noteState.notes.find((note) => note.id === state.noteState.activeNoteId),
@@ -105,11 +91,8 @@ const mapStateToProps = (state: ApplicationState) => ({
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  addNote: (note: NoteItem) => dispatch(addNote(note)),
   swapNote: (noteId: string) => dispatch(swapNote(noteId)),
   sendNoteToTrash: (noteId: string) => dispatch(sendNoteToTrash(noteId)),
-  syncState: (notes: NoteItem[], categories: CategoryItem[]) =>
-    dispatch(syncState(notes, categories)),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Navigation)
+export default connect(mapStateToProps, mapDispatchToProps)(NoteOptions)
