@@ -27,8 +27,14 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ loading, activeNote, updateNote
     return (
       <CodeMirror
         className="editor mousetrap"
+        options={{
+          mode: 'gfm',
+          theme: 'base16-light',
+          lineNumbers: true,
+          lineWrapping: true,
+          styleActiveLine: { nonEmpty: true },
+        }}
         value={activeNote.text}
-        options={options}
         editorDidMount={(editor) => {
           editor.focus()
         }}
