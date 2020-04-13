@@ -154,7 +154,7 @@ const NoteList: React.FC<NoteListProps> = ({
 const mapStateToProps = (state: ApplicationState) => {
   const { noteState, categoryState } = state
 
-  let filteredNotes: NoteItem[] = []
+  let filteredNotes: NoteItem[]
 
   if (noteState.activeFolder === Folders.CATEGORY) {
     filteredNotes = noteState.notes.filter(
@@ -165,6 +165,12 @@ const mapStateToProps = (state: ApplicationState) => {
   } else {
     filteredNotes = noteState.notes.filter((note) => !note.trash)
   }
+
+  filteredNotes.sort(function (a, b) {
+    let dateA = new Date(a.lastUpdated)
+    let dateB = new Date(b.lastUpdated)
+    return dateB > dateA ? 1 : dateB === dateA ? 0 : 1
+  })
 
   return {
     activeCategoryId: noteState.activeCategoryId,
