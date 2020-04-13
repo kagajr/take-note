@@ -18,10 +18,10 @@ const App: React.FC<AppProps> = ({ loadNotes, loadCategories }) => {
   }, [loadNotes])
   return (
     <div className="app">
+      <Navigation />
       <AppSideBar />
       <NoteList />
       <NoteEditor />
-      <Navigation />
     </div>
   )
 }
