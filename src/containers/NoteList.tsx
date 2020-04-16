@@ -79,7 +79,6 @@ const NoteList: React.FC<NoteListProps> = ({
       <div className="note-list">
         {filteredNotes.map((note) => {
           const noteTitle = getNoteTitle(note.text)
-
           return (
             <div
               className={note.id === activeNoteId ? 'note-each active' : 'note-each'}
@@ -141,6 +140,7 @@ const NoteList: React.FC<NoteListProps> = ({
                       </option>
                     )}
                   </select>
+                  <NoteOptions clickedNote={note} />
                 </div>
               )}
             </div>
@@ -160,6 +160,8 @@ const mapStateToProps = (state: ApplicationState) => {
     filteredNotes = noteState.notes.filter(
       (note) => !note.trash && note.category === noteState.activeCategoryId
     )
+  } else if (noteState.activeFolder === Folders.FAVORITES) {
+    filteredNotes = noteState.notes.filter((note) => !note.trash && note.bookmark)
   } else if (noteState.activeFolder === Folders.TRASH) {
     filteredNotes = noteState.notes.filter((note) => note.trash)
   } else {

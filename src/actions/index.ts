@@ -39,6 +39,11 @@ export const sendNoteToTrash = (noteId: string) => ({
   payload: noteId,
 })
 
+export const bookmarkNote = (noteId: string) => ({
+  type: Actions.BOOKMARK_NOTE,
+  payload: noteId,
+})
+
 export const swapNote = (noteId: string) => ({
   type: Actions.SWAP_NOTE,
   payload: noteId,

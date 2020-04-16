@@ -11,6 +11,7 @@ export interface NoteItem {
   lastUpdated: string
   category?: string
   trash?: boolean
+  bookmark?: boolean
 }
 
 export interface CategoryItem {
@@ -96,6 +97,11 @@ export interface DeleteNoteAction {
   payload: string
 }
 
+export interface BookmarkNoteAction {
+  type: typeof Actions.BOOKMARK_NOTE
+  payload: string
+}
+
 export interface SendNoteToTrashAction {
   type: typeof Actions.SEND_NOTE_TO_TRASH
   payload: string
@@ -140,6 +146,7 @@ export type NotesActionTypes =
   | SendNoteToTrashAction
   | SwapCategoryAction
   | SwapFolderAction
+  | BookmarkNoteAction
 
 /* Categories */
 

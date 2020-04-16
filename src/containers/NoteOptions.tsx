@@ -3,8 +3,8 @@ import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import uuid from 'uuid/v4'
 import moment from 'moment'
-import { Download, Trash } from 'react-feather'
-import { addNote, swapNote, sendNoteToTrash, syncState } from 'actions'
+import { Download, Trash, Bookmark } from 'react-feather'
+import { addNote, swapNote, sendNoteToTrash, syncState, bookmarkNote } from 'actions'
 import { NoteItem, CategoryItem, ApplicationState } from 'types'
 import { getNoteTitle, downloadNote } from 'helpers'
 import { useKey } from 'helpers/hooks'
@@ -12,10 +12,12 @@ import { useKey } from 'helpers/hooks'
 interface NoteOptionsProps {
   swapNote: (noteId: string) => void
   sendNoteToTrash: (noteId: string) => void
+  bookmarkNote: (noteId: string) => void
   activeNote?: NoteItem
   activeCategoryId: string
   notes: NoteItem[]
   categories: CategoryItem[]
+  clickedNote: NoteItem
 }
 
 const NoteOptions: React.FC<NoteOptionsProps> = ({
@@ -23,6 +25,8 @@ const NoteOptions: React.FC<NoteOptionsProps> = ({
   activeCategoryId,
   swapNote,
   sendNoteToTrash,
+  bookmarkNote,
+  clickedNote,
   notes,
   categories,
 }) => {
@@ -57,6 +61,12 @@ const NoteOptions: React.FC<NoteOptionsProps> = ({
     }
   }
 
+  const bookmarkNoteHandler = () => {
+    if (activeNote) {
+      bookmarkNote(clickedNote.id)
+    }
+  }
+
   useKey('ctrl+n', () => {
     newNoteHandler()
   })
@@ -79,6 +89,12 @@ const NoteOptions: React.FC<NoteOptionsProps> = ({
         <Download size={15} />
         Download note
       </div>
+      {!clickedNote.trash && (
+        <div className="nav-button" onClick={bookmarkNoteHandler}>
+          <Bookmark size={15} />
+          {clickedNote.bookmark ? 'Remove bookmark' : 'Bookmark'}
+        </div>
+      )}
     </nav>
   )
 }
@@ -93,6 +109,7 @@ const mapStateToProps = (state: ApplicationState) => ({
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   swapNote: (noteId: string) => dispatch(swapNote(noteId)),
   sendNoteToTrash: (noteId: string) => dispatch(sendNoteToTrash(noteId)),
+  bookmarkNote: (noteId: string) => dispatch(bookmarkNote(noteId)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NoteOptions)

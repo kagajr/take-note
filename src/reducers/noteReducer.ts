@@ -65,6 +65,18 @@ const noteReducer = (state = initialState, action: NotesActionTypes): NoteState 
         notes: state.notes.filter((note) => note.id !== action.payload),
         activeNoteId: getNewNoteId(state.notes, action.payload, state.activeCategoryId),
       }
+    case Actions.BOOKMARK_NOTE:
+      return {
+        ...state,
+        notes: state.notes.map((note) =>
+          note.id === action.payload
+            ? {
+                ...note,
+                bookmark: !note.bookmark,
+              }
+            : note
+        ),
+      }
     case Actions.SWAP_NOTE:
       return {
         ...state,
