@@ -28,7 +28,7 @@ import {
 } from 'react-feather'
 import { Folders } from 'constants/enums'
 
-const iconColor = 'rgba(255, 255, 255, 0.2)'
+const iconColor = 'rgba(255, 255, 255, 0.3)'
 
 interface AppProps {
   addNote: (note: NoteItem) => void
