@@ -26,6 +26,13 @@ export function noteWithFronmatter(note: NoteItem): string {
   ${note.text}`
 }
 
+export function sortByLastUpdated(a: NoteItem, b: NoteItem) {
+  let dateA = new Date(a.lastUpdated)
+  let dateB = new Date(b.lastUpdated)
+
+  return dateA > dateB ? -1 : dateA < dateB ? 1 : 0
+}
+
 export function downloadNote(filename: string, note: NoteItem): void {
   const pom = document.createElement('a')
 

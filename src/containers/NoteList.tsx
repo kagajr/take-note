@@ -3,7 +3,7 @@ import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { swapNote, pruneNotes, swapCategory, addCategoryToNote } from 'actions'
 import { NoteItem, CategoryItem, ApplicationState } from 'types'
-import { getNoteTitle } from 'helpers'
+import { getNoteTitle, sortByLastUpdated } from 'helpers'
 import { Folders } from 'constants/enums'
 import NoteOptions from 'containers/NoteOptions'
 import { MoreHorizontal } from 'react-feather'
@@ -164,11 +164,7 @@ const mapStateToProps = (state: ApplicationState) => {
     filteredNotes = noteState.notes.filter((note) => !note.trash)
   }
 
-  filteredNotes.sort(function (a, b) {
-    let dateA = new Date(a.lastUpdated)
-    let dateB = new Date(b.lastUpdated)
-    return dateB > dateA ? 1 : dateB === dateA ? 0 : 1
-  })
+  filteredNotes.sort(sortByLastUpdated)
 
   return {
     activeFolder: noteState.activeFolder,
