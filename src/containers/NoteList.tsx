@@ -7,7 +7,7 @@ import { getNoteTitle } from 'helpers'
 import { Folders } from 'constants/enums'
 import NoteOptions from 'containers/NoteOptions'
 import { MoreHorizontal } from 'react-feather'
-// import { folderMap } from 'constants/index'
+import { folderMap } from 'constants/index'
 
 interface NoteListProps {
   activeFolder: string
@@ -82,7 +82,7 @@ const NoteList: React.FC<NoteListProps> = ({
         className="searchbar"
       /> */}
       <div className="note-sidebar-header">
-        {activeFolder === 'CATEGORY' ? activeCategory!.name : ''}}
+        {activeFolder === 'CATEGORY' ? activeCategory!.name : folderMap[activeFolder]}
       </div>
       <div className="note-list">
         {filteredNotes.map((note) => {
