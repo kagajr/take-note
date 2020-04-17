@@ -2,15 +2,13 @@ import React from 'react'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { Download, Trash, Bookmark } from 'react-feather'
-import { sendNoteToTrash, syncState, bookmarkNote } from 'actions'
-import { NoteItem, CategoryItem, ApplicationState } from 'types'
+import { sendNoteToTrash, bookmarkNote } from 'actions'
+import { NoteItem, ApplicationState } from 'types'
 import { getNoteTitle, downloadNote } from 'helpers'
 
 interface NoteOptionsProps {
   sendNoteToTrash: (noteId: string) => void
   bookmarkNote: (noteId: string) => void
-  notes: NoteItem[]
-  categories: CategoryItem[]
   clickedNote: NoteItem
 }
 
@@ -18,17 +16,11 @@ const NoteOptions: React.FC<NoteOptionsProps> = ({
   sendNoteToTrash,
   bookmarkNote,
   clickedNote,
-  notes,
-  categories,
 }) => {
   const trashNoteHandler = () => {
     if (clickedNote && !clickedNote.trash) {
       sendNoteToTrash(clickedNote.id)
     }
-  }
-
-  const syncNotesHandler = () => {
-    syncState(notes, categories)
   }
 
   const downloadNoteHandler = () => {
@@ -64,8 +56,6 @@ const NoteOptions: React.FC<NoteOptionsProps> = ({
 }
 
 const mapStateToProps = (state: ApplicationState) => ({
-  notes: state.noteState.notes,
-  categories: state.categoryState.categories,
   activeCategoryId: state.noteState.activeCategoryId,
 })
 

@@ -58,12 +58,6 @@ const NoteList: React.FC<NoteListProps> = ({
     }
   }
 
-  const searchNotes = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const filteredResults = filteredNotes.filter(
-      (note) => note.text.toLowerCase().search(event.target.value.toLowerCase()) !== -1
-    )
-  }
-
   useEffect(() => {
     // add when mounted
     document.addEventListener('mousedown', handleNoteOptionsClick)
@@ -75,12 +69,6 @@ const NoteList: React.FC<NoteListProps> = ({
 
   return (
     <aside className="note-sidebar">
-      {/* <input
-        type="search"
-        placeholder="Search notes"
-        onChange={searchNotes}
-        className="searchbar"
-      /> */}
       <div className="note-sidebar-header">
         {activeFolder === 'CATEGORY' ? activeCategory!.name : folderMap[activeFolder]}
       </div>
