@@ -12,6 +12,7 @@ export interface NoteItem {
   category?: string
   trash?: boolean
   bookmark?: boolean
+  favorite?: boolean
 }
 
 export interface CategoryItem {

@@ -14,6 +14,7 @@ import {
   deleteCategory,
   syncState,
 } from 'actions'
+import { newNote } from 'helpers'
 import kebabCase from 'lodash/kebabCase'
 import {
   Trash2,
@@ -69,15 +70,9 @@ const AppSidebar: React.FC<AppProps> = ({
   }
 
   const newNoteHandler = () => {
-    const note: NoteItem = {
-      id: uuid(),
-      text: '',
-      created: moment().format(),
-      lastUpdated: moment().format(),
-      category: activeCategoryId ? activeCategoryId : undefined,
-    }
-
     if ((activeNote && activeNote.text !== '') || !activeNote) {
+      const note = newNote(activeCategoryId, activeFolder)
+
       addNote(note)
       swapNote(note.id)
     }

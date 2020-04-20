@@ -1,4 +1,7 @@
 import { NoteItem } from 'types'
+import moment from 'moment'
+import uuid from 'uuid/v4'
+import { Folders } from 'constants/enums'
 
 export function getNoteTitle(text: string): string {
   let noteTitle: string
@@ -32,6 +35,15 @@ export function sortByLastUpdated(a: NoteItem, b: NoteItem) {
 
   return dateA > dateB ? -1 : dateA < dateB ? 1 : 0
 }
+
+export const newNote = (categoryId?: string, folder?: string): NoteItem => ({
+  id: uuid(),
+  text: '',
+  created: moment().format(),
+  lastUpdated: moment().format(),
+  category: categoryId,
+  favorite: folder === Folders.FAVORITES,
+})
 
 export function downloadNote(filename: string, note: NoteItem): void {
   const pom = document.createElement('a')
