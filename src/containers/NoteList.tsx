@@ -70,7 +70,9 @@ const NoteList: React.FC<NoteListProps> = ({
   return (
     <aside className="note-sidebar">
       <div className="note-sidebar-header">
-        {activeFolder === 'CATEGORY' ? activeCategory!.name : folderMap[activeFolder]}
+        {activeFolder === 'CATEGORY'
+          ? activeCategory && activeCategory.name
+          : folderMap[activeFolder]}
       </div>
       <div className="note-list">
         {filteredNotes.map((note) => {

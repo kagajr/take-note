@@ -160,7 +160,9 @@ const AppSidebar: React.FC<AppProps> = ({
                 <div
                   className="category-options"
                   onClick={() => {
-                    const newNoteId = notes.length > 0 ? notes[0].id : ''
+                    const notesnoteTrash = notes.filter((note) => !note.trash)
+                    const newNoteId = notesnoteTrash.length > 0 ? notesnoteTrash[0].id : ''
+
                     deleteCategory(category.id)
                     pruneCategoryFromNotes(category.id)
                     swapFolder(Folders.ALL)
