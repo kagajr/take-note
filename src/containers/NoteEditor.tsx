@@ -35,9 +35,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ loading, activeNote, updateNote
           styleActiveLine: { nonEmpty: true },
         }}
         value={activeNote.text}
-        editorDidMount={(editor) => {
-          editor.focus()
-        }}
+        editorDidMount={(editor) => {}}
         onBeforeChange={(editor, data, value) => {
           updateNote({
             id: activeNote.id,
@@ -47,7 +45,9 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ loading, activeNote, updateNote
           })
         }}
         onChange={(editor, data, value) => {
-          editor.focus()
+          if (activeNote && activeNote.text === '') {
+            editor.focus()
+          }
         }}
       />
     )

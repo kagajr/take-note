@@ -4,4 +4,5 @@ export default {
   lineNumbers: true,
   lineWrapping: 'wrap',
   styleActiveLine: { nonEmpty: true },
+  viewportMargin: Infinity,
 }
