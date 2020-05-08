@@ -148,8 +148,6 @@ export function getFirstNote(folder: string, notes: NoteItem[], categoryId?: str
       return firstNoteTrash ? firstNoteTrash.id : ''
     case Folders.ALL:
       return notesNotTrash.length > 0 ? notesNotTrash[0].id : ''
-    case Folders.TRASH:
-      return notes.find((note) => note.trash) ? notes.find((note) => note.trash)!.id : ''
     default:
       return ''
   }
