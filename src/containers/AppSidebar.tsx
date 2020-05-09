@@ -28,6 +28,7 @@ import {
   Bookmark,
 } from 'react-feather'
 import { Folders } from 'constants/enums'
+import { useKeyboard } from '../contexts/KeyboardContext'
 
 const iconColor = 'rgba(255, 255, 255, 0.3)'
 
@@ -62,7 +63,7 @@ const AppSidebar: React.FC<AppProps> = ({
   activeFolder,
   syncState,
 }) => {
-  const [addingTempCategory, setAddingTempCategory] = useState(false)
+  const { addingTempCategory, setAddingTempCategory } = useKeyboard()
   const [tempCategory, setTempCategory] = useState('')
 
   const newTempCategoryHandler = () => {

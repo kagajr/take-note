@@ -6,6 +6,7 @@ import { addNote, swapNote, sendNoteToTrash, syncState } from 'actions'
 import { NoteItem, CategoryItem, ApplicationState } from 'types'
 import { newNote, getNoteTitle, downloadNote } from 'helpers'
 import { useKey } from 'helpers/hooks'
+import { useKeyboard } from '../contexts/KeyboardContext'
 
 interface KeyboardShortcutsProps {
   addNote: (note: NoteItem) => void
@@ -30,6 +31,7 @@ const KeyboardShortcuts: React.FC<KeyboardShortcutsProps> = ({
   notes,
   categories,
 }) => {
+  const { addingTempCategory, setAddingTempCategory } = useKeyboard()
   const newNoteHandler = () => {
     const note = newNote(activeCategoryId, activeFolder)
 
@@ -37,6 +39,10 @@ const KeyboardShortcuts: React.FC<KeyboardShortcutsProps> = ({
       addNote(note)
       swapNote(note.id)
     }
+  }
+
+  const newTempCategoryHandler = () => {
+    !addingTempCategory && setAddingTempCategory(true)
   }
 
   const trashNoteHandler = () => {
@@ -54,6 +60,10 @@ const KeyboardShortcuts: React.FC<KeyboardShortcutsProps> = ({
       downloadNote(getNoteTitle(activeNote.text), activeNote)
     }
   }
+
+  useKey('ctrl+c', () => {
+    newTempCategoryHandler()
+  })
 
   useKey('ctrl+n', () => {
     newNoteHandler()

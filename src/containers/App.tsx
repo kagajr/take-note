@@ -6,6 +6,7 @@ import NoteEditor from 'containers/NoteEditor'
 import AppSideBar from 'containers/AppSidebar'
 import KeyboardShortcuts from 'containers/KeyboardShortcuts'
 import { loadNotes, loadCategories } from 'actions'
+import { KeyboardProvider } from '../contexts/KeyboardContext'
 
 interface AppProps {
   loadNotes: () => void
@@ -18,10 +19,12 @@ const App: React.FC<AppProps> = ({ loadNotes, loadCategories }) => {
   }, [loadNotes])
   return (
     <div className="app">
-      <AppSideBar />
-      <NoteList />
-      <NoteEditor />
-      <KeyboardShortcuts />
+      <KeyboardProvider>
+        <AppSideBar />
+        <NoteList />
+        <NoteEditor />
+        <KeyboardShortcuts />
+      </KeyboardProvider>
     </div>
   )
 }
